@@ -1,6 +1,6 @@
 {
   "name": "grainstack",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "description": "A way of making three-tier apps with a focus on  in browser-native JS.",
   "keywords": [
