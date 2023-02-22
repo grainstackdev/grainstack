@@ -47,12 +47,12 @@ Covering these common use cases means that many projects might not need plugin s
 
 ## A Three-Tier SPA
 
-A single page application requires these parts:
+There are certain parts a single page application requires, and these solutions are known to work well together:
 
 * [File Serving](./docs/file-serving.md)
 * Dependencies - Import from `node_modules` in the browser using [`web-imports`](https://npmjs.com/web-imports)
 * HTML solution - JSX using [`jsx-to-hyperscript`](https://npmjs.com/jsx-to-hyperscript)
-* CSS - I recommend using [`import {css} from 'goober'`](https://www.npmjs.com/package/goober) 
+* CSS - I don't maintain it, but I recommend using [`import {css} from 'goober'`](https://www.npmjs.com/package/goober) 
 * [Reactivity](https://www.npmjs.com/package/grainbox)
 * [History](https://github.com/grainstackdev/grainbox/blob/HEAD/docs/history.md)
 * [Routing](https://github.com/grainstackdev/grainbox/blob/HEAD/docs/routing.md)
