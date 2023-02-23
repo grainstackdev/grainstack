@@ -2,7 +2,7 @@
   "name": "grainstack",
   "version": "0.0.6",
   "license": "MIT",
-  "description": "A way of making three-tier apps with a focus on  in browser-native JS.",
+  "description": "A succinct (API-first) way of building fine-grained, three-tier web apps.",
   "keywords": [
     "api-first",
     "small",
