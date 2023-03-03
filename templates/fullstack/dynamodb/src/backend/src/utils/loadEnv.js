@@ -7,5 +7,6 @@ import dotenv from "dotenv-defaults"
 export function loadEnv() {
   dotenv.config({
     path: path.resolve(__dirname, "../../secrets/.env"),
+    defaults: path.resolve(__dirname, "../../secrets/.env.defaults")
   })
 }

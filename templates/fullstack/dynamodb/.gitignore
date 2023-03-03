@@ -3,8 +3,8 @@ node_modules
 dist
 esm
 cjs
+secrets/.env
 .env
-secrets
 .dynamodb
 build
 .serverless
