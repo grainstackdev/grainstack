@@ -27,7 +27,8 @@
   "files": [
     "./docs",
     "./dist",
-    "./examples"
+    "./examples",
+    "./templates"
   ],
   "type": "module",
   "bin": "cli.js",
