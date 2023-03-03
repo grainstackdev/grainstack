@@ -30,7 +30,13 @@
     "./examples"
   ],
   "type": "module",
+  "bin": "cli.js",
   "scripts": {
     "readme": "git add . && git commit -m 'readme' && npm version patch && git push && npm publish"
+  },
+  "dependencies": {
+    "ansi-colors": "^4.1.3",
+    "fs-extra": "^11.1.0",
+    "minimist": "^1.2.8"
   }
 }

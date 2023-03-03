@@ -1,0 +1,107 @@
+service: example-com
+frameworkVersion: '3'
+
+package:
+  patterns:
+    - '!.idea'
+    - '!src'
+
+custom:
+  userTableName: 'example-com-user-${sls:stage}'
+  customDomain:
+    domainName: 'example.com'
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    autoDomain: true
+  serverless-offline:
+    httpPort: 4000
+  dynamodb:
+    # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+    # Uncomment only if you already have a DynamoDB running locally
+#     noStart: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  memorySize: 512
+  timeout: 30
+  stage: dev
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [ MessagesTable, Arn ]
+  environment:
+    USER_TABLE: ${self:custom.userTableName}
+
+functions:
+  api:
+    handler: build/backend/src/server.handler
+    events:
+      - http: 'ANY /'
+      - http: 'ANY /{proxy+}'
+      - httpApi: '*' # for local development
+#  cleanup:
+#    handler: build/workers.cleanup
+#    events:
+#      - schedule: rate(1 hour)
+
+#  test1:
+#    handler: test1.handler
+#    events:
+#      - httpApi: '*' # for local development
+#  test2:
+#    handler: test2.handler
+#    events:
+#      - schedule: rate(1 minute)
+
+
+resources:
+  Resources:
+    MessagesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.userTableName}
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: dateCreated
+            AttributeType: N
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: dateCreated
+            KeySchema:
+              - AttributeName: dateCreated
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+        ProvisionedThroughput:
+          ReadCapacityUnits: 0
+          WriteCapacityUnits: 0
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+  - serverless-domain-manager

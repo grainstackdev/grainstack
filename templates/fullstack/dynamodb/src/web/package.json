@@ -1,0 +1,26 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "yarn build-clean && yarn build-types && yarn build-jsx",
+    "build-clean": "rm -rf build artifact && cp -r src build",
+    "build-types": "flow-remove-types --pretty src --out-dir build && flow-remove-types --pretty --sourcemaps src --out-dir build",
+    "build-jsx": "jsx-to-hyperscript 'build/**/*.{js,mjs}' --write",
+    "build-imports": "cp -r build artifact && cp -r node_modules artifact/node_modules && web-imports --glob 'artifact/**/*.{js, mjs}'"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "grainbox": "^1.1.0",
+    "jwt-decode": "^3.1.2",
+    "qss": "^3.0.0",
+    "store-esm": "^3.0.0"
+  },
+  "devDependencies": {
+    "flow-remove-types": "^2.200.1",
+    "jsx-to-hyperscript": "1.1.15"
+  }
+}
