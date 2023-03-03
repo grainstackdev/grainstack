@@ -32,6 +32,10 @@
     "transform-backend": "",
     "transform-common": "web-imports build/common --prefix '/common/node_modules/' --write",
     "transform-web": "web-imports build/web --prefix '/web/node_modules/' --write",
+    "postinstall": "npm run install-backend && npm run install-common && npm run install-web",
+    "install-backend": "cd src/backend && yarn && cd ../../",
+    "install-common": "cd src/common && yarn && cd ../../",
+    "install-web": "cd src/web && yarn && cd ../../",
     "package": "npm run transform && sls package",
     "deploy": "npm run transform && sls deploy",
     "readme": "git add . && git commit -m 'readme' && npm version patch && git push && npm publish"
