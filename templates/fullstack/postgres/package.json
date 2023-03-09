@@ -1,0 +1,62 @@
+{
+  "name": "memc.sh",
+  "version": "0.0.10",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "description": "Serve an SPA with node_modules and zero config as a service",
+  "keywords": [
+    "memc.sh",
+    "grain",
+    "grainstack"
+  ],
+  "files": [],
+  "scripts": {
+    "start": "nodemon -e mjs,js,html --watch src/backend/src --watch src/common/src --watch src/web/src --exec 'npm run gen-sql && npm run dev'",
+    "dev": "cross-env IS_OFFLINE=true node build/backend/src/localServer.js",
+    "gen-sql": "npm run transform && node build/backend/src/schema/generate.js",
+    "clean-sql": "node src/backend/src/database/localClean.js",
+    "build": "npm run build-clean && npm run build-backend && npm run build-common && npm run build-web",
+    "build-clean": "rm -rf build && mkdir build",
+    "build-backend": "cd src/backend && npm run build && cd ../../",
+    "build-common": "cd src/common && npm run build && cd ../../",
+    "build-web": "cd src/web && npm run build && cd ../../",
+    "bundle": "npm run build && npm run bundle-backend && npm run bundle-common && npm run bundle-web",
+    "bundle-backend": "cp -r src/backend build/backend && rm -rf build/backend/src && mv build/backend/build build/backend/src",
+    "bundle-common": "cp -r src/common build/common && rm -rf build/common/src && mv build/common/build build/common/src",
+    "bundle-web": "cp -r src/web build/web && rm -rf build/web/src && mv build/web/build build/web/src",
+    "transform": "npm run bundle && npm run transform-backend && npm run transform-common && npm run transform-web",
+    "transform-backend": "",
+    "transform-common": "web-imports build/common --prefix '/common/node_modules/' --write",
+    "transform-web": "web-imports build/web --prefix '/web/node_modules/' --write",
+    "postinstall": "npm run install-backend && npm run install-common && npm run install-web",
+    "install-backend": "cd src/backend && yarn && cd ../../",
+    "install-common": "cd src/common && yarn && cd ../../",
+    "install-web": "cd src/web && yarn && cd ../../",
+    "package": "npm run transform && sls package",
+    "deploy": "npm run transform && sls deploy",
+    "readme": "git add . && git commit -m 'readme' && npm version patch && git push && npm publish"
+  },
+  "gitHooks": {
+    "pre-commit": "yarn flow check && lint-staged"
+  },
+  "lint-staged": {
+    "*.js": "prettier --write"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "flow-bin": "^0.200.0",
+    "lint-staged": "^13.1.2",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.4",
+    "serverless": "^3.28.1",
+    "serverless-domain-manager": "^6.4.3",
+    "serverless-offline": "^12.0.4",
+    "web-imports": "^3.1.5",
+    "yorkie": "^2.0.0"
+  },
+  "engines": {
+    "node": "=16"
+  }
+}

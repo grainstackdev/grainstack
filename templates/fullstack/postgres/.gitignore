@@ -1,0 +1,12 @@
+node_modules
+.idea
+dist
+esm
+cjs
+secrets/.env
+.env
+.dynamodb
+build
+.serverless
+yarn-error.log
+.DS_Store

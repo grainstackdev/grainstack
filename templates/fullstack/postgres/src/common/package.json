@@ -1,0 +1,16 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "yarn build-clean && yarn build-types",
+    "build-clean": "rm -rf build artifact && cp -r src build",
+    "build-types": "flow-remove-types --pretty src --out-dir build && flow-remove-types --pretty --sourcemaps src --out-dir build"
+  },
+  "devDependencies": {
+    "flow-remove-types": "^2.200.1"
+  }
+}
