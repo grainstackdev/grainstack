@@ -25,7 +25,7 @@ if (!args.length) {
 
   const dest = path.resolve(process.cwd(), name)
 
-  fs.copySync(path.resolve(__dirname, 'templates/fullstack/dynamodb'), dest, {
+  fs.copySync(path.resolve(__dirname, 'templates/fullstack/postgres'), dest, {
     errorOnExist: true
   })
 }
