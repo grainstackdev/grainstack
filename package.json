@@ -1,6 +1,6 @@
 {
   "name": "grainstack",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "description": "A succinct (API-first) way of building fine-grained, three-tier web apps.",
   "keywords": [
