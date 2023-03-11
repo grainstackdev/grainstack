@@ -7,7 +7,7 @@
 This is an alternative stack for building web apps.
 
 * `grainstack` - Run `npx grainstack` to create a three-tier app.
-* `grainbox` : `react` - Front-end framework providing reactive updates.
+* [`grainbox`](https://npmjs.com/grainbox) : `react` - Front-end framework providing reactive updates.
 * `jsx-to-hyperscript` : `babel` - JSX support by transforming it to `hyperscript`.
 * `web-imports` : `webpack` - Support for resolving dependencies of dependencies.
 * `cleanbean` - A client-side graphql interface with minimal API surface area.
